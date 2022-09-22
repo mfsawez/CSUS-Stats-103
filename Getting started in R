@@ -1,0 +1,177 @@
+#Section 1
+
+#Exercise 1: Calculate the square root of 729
+sqrt(729)
+
+#Exercise 2: Create a new vaiable 'b' with value 1947.0
+b <- 1947.0
+
+#Exercise 3: Convert 'b' from previous exercise to character
+class (b)
+b <- as.character(b)
+print(b)
+class (b)
+
+#Exercise 4: Setup your working directory to a new 'work' folder in your desktop
+setwd ("path/to/my/desktop/work")
+getwd()
+
+#Exercise 5.1: Create a new environment called 'myEnv'
+myEnv <- new.env()
+
+#Exercise 5.2: Create a variable inside it
+assign('b', 3, envir = myEnv)
+
+#Exercise 5.3: Access the variable inside the new environment
+get('b', envir = myEnv)
+
+#Exercise 5.4: Delete the variable inside that environment
+rm(b, envir = myEnv)
+
+#Section 2
+vec1 <- c (10, 20, 15, 40)  # numeric vector
+vec2 <- c ("a", "b", "c", NA)  # character vector
+vec3 <- c (TRUE, FALSE, TRUE, TRUE)  # logical vector
+vec4 <- gl (4, 1, 4, label = c("l1", "l2", "l3", "l4"))  # factor with 4 levels
+
+#Exercise 6.a: Create a vector numbers from 1 to 6 and find out its class
+one_to_six <- c(1, 2, 3, 4, 5, 6)
+class(one_to_six)
+
+#Exercise 6.b: Create a vector containing following mixed elements {1, 'a', 2, 'b'} and find out its class
+one_a <- c(1, "a", 2, "b")
+class(one_a)
+
+#Exercise 6.c: Initialise a character vector of length 26
+charHundred <- character(26)
+charHundred
+
+#Exercise 6.d: Assign the character 'a' to the first element in above vector.
+charHundred[1] <- "a"
+
+#Exercise 6.1: Create a vector with some of your friend's names
+myFriends <- c("Basma", "Mona", "Amir", "Frishta", "Simon")
+
+#Exercise 6.2: Get the length of above vector
+length(myFriends)
+
+#Exercise 6.3: Get the first two friends from above vector
+myFriends[1:2]
+
+#Exercise 6.4: Get the 2nd and 3rd friends
+myFriends[c(2,3)]
+
+#Exercise 6.5: Sort your friends by names using 2 methods
+sort(myFriends)
+myFriends[order(myFriends)]
+
+#Exercise 6.6: Reverse direction of the above sort
+sort(myFriends, decreasing=TRUE)
+myFriends[rev(order(myFriends))]
+
+#Exercise 7: Create with rep and seq: 'a','a',1,2,3,4,5,7,9,11
+
+#Exercise 8: Remove missing value from c(1, 2, NA, 4)
+myVec <- c(1, 2, NA, 4)
+myVec[!is.na(myVec)]
+
+#Exercise 9: Pick 50 random numbers between 1 to 100, with replacement
+sample(1:100, 50, replace=T)
+
+#Section 3
+myDf1 <- data.frame (vec1, vec2)  # make data frame with 2 columns
+myDf2 <- data.frame (vec1, vec3, vec4)
+myDf3 <- data.frame (vec1, vec2, vec3)
+
+#Exercise 10: Check the class of myDf2
+class(myDf2) # data.frame
+
+#Exercise 11: Apply the above functions and inspect results on 'iris' (a base R dataframe)
+class (iris)  # get class
+sapply (iris, class)  # get class of all columns
+str (iris)  # structure
+summary (iris)  # summary of airquality
+head (iris)  # view the first 6 obs
+fix (iris)  # view spreadsheet like grid
+rownames (iris)  # row names
+colnames (iris)  # columns names
+nrow (iris)  # number of rows
+ncol (iris)  # number of columns
+
+#Exercise 12.1: Get the last 2 rows in last 2 columns from iris dataset
+numRows <- nrow(iris)
+numCols <- ncol(iris)
+iris[(numRows-1):numRows, (numCols-1):numCols]
+
+#Exercise 12.2: Get rows with Sepal.Width > 3.5 using which() from iris
+iris[iris$Sepal.Width > 3, ]
+iris[which(iris$Sepal.Width > 3), ]
+
+#Exercise 12.3: Get the rows with 'versicolor' Species using subset() from iris
+subset(iris, Species == "versicolor")
+
+#Exercise 13.1: Find out how to do inner join, outer join, left join and right join. Merge using the by variable as 'Species'
+set.seed(100)
+df1 = data.frame(StudentId = c(1:10), Subject = sample(c("Math", "Science", "Arts"), 10, replace=T))
+df2 = data.frame(StudentNum = c(2, 4, 6, 12), Sport = sample(c("Football", "Tennis", "Chess"), 4, replace=T))
+# Not Run
+# Inner Join: Keep only common rows
+merge(df1, df2, by.x="StudentId", by.y="StudentNum")
+# Outer Join: Keep all rows
+merge(df1, df2, by.x="StudentId", by.y="StudentNum", all=T)
+# Left Join: Keep all rows from left dataset
+merge(df1, df2, by.x="StudentId", by.y="StudentNum", all.x=T)  # 12 is left out.
+# Right Join: Keep all rows from right dataset.
+merge(df1, df2, by.x="StudentId", by.y="StudentNum", all.y=T)  # 12 is included but, the value of 'subject' will be missing because 12 not present in df1.
+
+#Exercise 13.2: How would you specify the 'by' variables if the two data frames to be merged have different 'by' variables.
+# Not Run
+merge(df1, df2, by ="var1") # both DFs have a common variable name'var1'
+merge(df1, df2, by.x="var1", by.y="var2") # both DFs have different names for by variables
+
+#Section 4
+
+#Exercise 14: Create this character vector using paste: 'var1', 'var2', 'var3', 'pred1', 'pred2', 'pred3'
+paste0 (c(rep("var", 3), rep("pred", 3)), 1:3)
+
+#Exercise 15: Tabulate the Sepal.Width for each Species from iris
+table(iris$Species, iris$Sepal.Width)
+myList <- list (vec1, vec2, vec3, vec4)
+
+#Exercise 16: Get the non missing values from 2nd element of myList
+myList[[2]][!is.na(myList[[2]])]
+
+#Exercise 17: Make the logic for above problem statement using a 'for-loop' and a 'if-else' statement
+output <- character(nrow(iris))
+for(i in c(1:nrow(iris))){
+  
+  if (iris$Sepal.Length[i] > 5){
+    
+    output[i] <- "greater than 5"
+    
+  } else {
+    
+    output[i] <- "lesser than 5"
+    
+  }
+  
+}
+
+#Exercise 18: Make the logic for above problem statement using a ifelse() function
+output <- ifelse(iris$Sepal.Length > 5, "greater than 5", "lesser than 5")
+
+#Exercise 19: Create a logic for the same problem statement using apply() function
+myFunc <- function(x){
+  
+  if(x['Sepal.Length'] > 5){
+    
+    "greater than 5"
+    
+  } else {
+    
+    "lesser than 5"
+    
+  }
+  
+}
+output <- apply(iris, 1, FUN=myFunc)
